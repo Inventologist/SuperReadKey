@@ -6,9 +6,10 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     [parameter (Mandatory=$false)][string[]]$ValidChoicesList, #Give a list of valid characters (List of all valid choices available) Must be printable characters, no ALT,Enter, CTRL, etc.
     [parameter (Mandatory=$false)]$MultiCharToggleChar = "-", #Change this to alter the character that enables/disables the MultiChar Mode.
     [parameter (Mandatory=$false)]$ResetPrompt = "NO", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
+    [parameter (Mandatory=$false)]$ConsoleWidthforPrompt = $ConsoleWidth, #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
     [parameter (Mandatory=$false)]$SendKeystrokeTo = "MenuActions" #Functional to send the $K Value to.
     )
-
+    
     #Store Current $ValidChoicesList to a variable so that when the process loops back (for MultiChar or Backspacing) the original value can be reused without having to specifiy it again.
     IF ($ValidChoicesList -ne "" -AND $ResetPrompt -eq "NO") {$Global:ValidChoicesList_Session = $ValidChoicesList} #IF you have called the function, HAVE specified a $ValidChoicesList value, and you are NOT resetting the Prompts, Set the $ValidChoicesList_Session value to the current $ValidChoicesList
     IF ($ValidChoicesList -eq $null -AND $ResetPrompt -eq "YES") {$ValidChoicesList = $Global:ValidChoicesList_Session} #IF you have called the function, HAVE NOT specified a $ValidChoicesList value, and you ARE resetting the prompt, use the $ValidChoicesList_Sesstion value for the $ValidChoicesList
@@ -187,7 +188,7 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
         &$MultiCharDiag
         
         #Set Maximum Entry Length
-        IF ($MultiChar_VALUE.Length -ge ($ScreenWidth -32)) {Write-Host "";Write-Host "Maxiumum entry Size reached";Start-Sleep 3;&$SourceMenu}
+        IF ($MultiChar_VALUE.Length -ge ($ConsoleWidthForPrompt -32)) {Write-Host "";Write-Host "Maxiumum entry Size reached";Start-Sleep 3;&$SourceMenu}
         
         &$FunctionLoopback -Mode Multi -ResetPrompt YES #Go back to SuperReadKey in Multi mode to get the next character.
     }
