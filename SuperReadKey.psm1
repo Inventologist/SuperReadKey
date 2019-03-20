@@ -3,7 +3,7 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     [parameter (Mandatory=$false)][ValidateSet('Single','Multi')]$Mode = "Single",
     [parameter (Mandatory=$false)]$TimeToWait = 90,
     [parameter (Mandatory=$false)]$DefaultKeystroke = 'Q',
-    [parameter (Mandatory=$false)][string[]]$ValidChoicesList = $ValidKeyChoices, #Give a list of valid characters (List of all valid choices available) Must be printable characters, no ALT,Enter, CTRL, etc.
+    [parameter (Mandatory=$false)]$ValidChoicesList, #Give a list of valid characters (List of all valid choices available) Must be printable characters, no ALT,Enter, CTRL, etc.
     [parameter (Mandatory=$false)]$MultiCharToggleChar = "-", #Change this to alter the character that enables/disables the MultiChar Mode.
     [parameter (Mandatory=$false)]$ResetPrompt = "NO", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
     [parameter (Mandatory=$false)]$ConsoleWidthForPrompt = "$ConsoleWidth", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
