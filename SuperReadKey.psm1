@@ -3,7 +3,7 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     [parameter (Mandatory=$false)][ValidateSet('Single','Multi')]$Mode = "Single",
     [parameter (Mandatory=$false)]$TimeToWait = 90,
     [parameter (Mandatory=$false)]$DefaultKeystroke = 'Q',
-    [parameter (Mandatory=$false)][string[]]$ValidChoicesList, #Give a list of valid characters (List of all valid choices available) Must be printable characters, no ALT,Enter, CTRL, etc.
+    [parameter (Mandatory=$false)][string[]]$ValidChoicesList = $ValidKeyChoices, #Give a list of valid characters (List of all valid choices available) Must be printable characters, no ALT,Enter, CTRL, etc.
     [parameter (Mandatory=$false)]$MultiCharToggleChar = "-", #Change this to alter the character that enables/disables the MultiChar Mode.
     [parameter (Mandatory=$false)]$ResetPrompt = "NO", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
     [parameter (Mandatory=$false)]$ConsoleWidthForPrompt = "$ConsoleWidth", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
@@ -103,7 +103,7 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     ###########################
     WHILE (-not $host.ui.RawUI.KeyAvailable) {
     $CurrentTime = Get-Date 
-        IF ($CurrentTime -gt $startTime + $TimeOut) {$K = $DefaultKeystroke;Invoke-Expression $SendKeystrokeTo}
+        IF ($CurrentTime -gt $startTime + $TimeOut) {$Global:K = $DefaultKeystroke;Invoke-Expression $SendKeystrokeTo}
     }
 
     ##########################
@@ -112,11 +112,11 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     IF ($Host.UI.RawUI.KeyAvailable) {
         DO {
             [array]$Global:Response = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown");
-            $K = $Response.Character
+            $Global:K = $Response.Character
         } UNTIL 
         
         #Compare against the list of valid choices $KeychoiceVerifyAllValid.
-        (($ValidChoicesList -match $Response.Character) -OR
+        (($ValidChoicesList_Session -match $Response.Character) -OR
 
         #Enable 0 as a valid choice... Turns DiagMode ON/OFF and goes to the main menu.
         ($Response.Character -eq "0") -OR
@@ -169,7 +169,7 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
         #Interrupt and Process the Value of $K as the menu selection IF the VirtualKeyCode is "ENTER".
         IF ($Response.VirtualKeyCode -eq "13") {
             Write-Host "`n  Running Command" -F Green
-            $K = $MultiChar_VALUE
+            $Global:K = $MultiChar_VALUE
             Find-MenuSelectionError
             &$SendKeystrokeTo #Exit to process input.
         }
@@ -209,7 +209,7 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     ## Single Mode Processing Area ##
     #################################
     IF ($Mode -eq "Single") { #Process Keystroke for Single Mode Input  ##This IF is completely unecessary, as it would still catch a "Single" mode input without it, I just wanted to be verbose about its functionality.
-        Find-MenuSelectionError #Message and Audio if option is not allowed.
+        #Find-MenuSelectionError #Message and Audio if option is not allowed.
         &$SendKeystrokeTo #Exit to process input.
     }
 }
@@ -222,7 +222,7 @@ Function ReadHost { # KeyMode3 - Allows multiple keystrokes, Requires Enter (Use
     $Prompt = &$PromptLine1;&$PromptLine2S
     $Prompt #Make the Prompt come up
 
-    $K = Read-Host " "
+    $Global:K = Read-Host " "
     Write-Host ""
     Write-Host -NoNewline "You Pressed " -ForegroundColor DarkYellow;Write-Host "$K" -ForegroundColor Red
     Start-Sleep -Milliseconds 500
