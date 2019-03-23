@@ -11,10 +11,10 @@ This was born from a desire to have Read-Host accept single characters without n
 But... I needed a way to have BOTH single and multiple character input.  I could have easily switched between $Host.UI.RawUI.ReadKey and Read-Host, but I wanted it to work in a SINGLE function.  So, SuperReadKey was born.
 
 # Structure / Intended Usage
-**Intended useage**
+**Intended useage**  
 SuperReadKey is meant to be called at the point that you need keyboard input, and then return to ANOTHER function to take action on the $Kvariable that stores the keyboard input.  This is specifically because the script needs to exit out at several points and calling out to a fuction is the most reliable way I have found to do that.  See the DEMO script for how I intended this to be used.
 
-**Structure**
+**Structure**  
 -SuperReadKey takes a $Host.UI.RawUI.ReadKey input and sends $K to the $SendKeystrokeTo variable.  This would be routed to whatever process in your ecosystem processes the input.
 
 -When you need to process multiple characters (MultiChar), the default key is -  
