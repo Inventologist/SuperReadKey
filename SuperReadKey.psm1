@@ -7,9 +7,9 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
     [parameter (Mandatory=$false)]$MultiCharToggleChar = "-", #Change this to alter the character that enables/disables the MultiChar Mode.
     [parameter (Mandatory=$false)]$ResetPrompt = "NO", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
     [parameter (Mandatory=$false)]$ConsoleWidthForPrompt = "$ConsoleWidth", #This is so that the Clear-HostLine command does not erase lines of the menu.  It is only used for when the prompt needs to be reset.
-    [parameter (Mandatory=$false)]$SendKeystrokeTo #Functional to send the $K Value to.
+    [parameter (Mandatory=$false)]$SendKeystrokeTo #Function to jump to after completing your entry. Effectively, this would be where you send the $K Value to.
     )
-    
+                  
     #Store Current $ValidChoicesList to a variable so that when the process loops back (for MultiChar or Backspacing) the original value can be reused without having to specifiy it again.
     IF ($ValidChoicesList -ne "" -AND $ResetPrompt -eq "NO") {$Global:ValidChoicesList_Session = $ValidChoicesList} #IF you have called the function, HAVE specified a $ValidChoicesList value, and you are NOT resetting the Prompts, Set the $ValidChoicesList_Session value to the current $ValidChoicesList
     IF ($ValidChoicesList -eq $null -AND $ResetPrompt -eq "YES") {$ValidChoicesList = $Global:ValidChoicesList_Session} #IF you have called the function, HAVE NOT specified a $ValidChoicesList value, and you ARE resetting the prompt, use the $ValidChoicesList_Sesstion value for the $ValidChoicesList
@@ -145,8 +145,6 @@ Function SuperReadKey { #SuperReadKey (Uses $Host.UI.RawUI.ReadKey) - Has a Time
             $MultiChar_STAGE = 1; #Starts the stage at 1.
             
             $Message = {Write-Host " " #This line is necessary to get the message to the next line.  It ensures that the length of the $Message will not interfere with the entered characters that could possibly be on the entry line.  If there were several, then the line would wrap around and mess up the calculcation of the Clear-HostLine
-                        Write-Host " " 
-                        Write-Host " "
                         Write-Host "  Enabling MultiChar" -F Red} #You must have "MultiChar in this message line... the function uses that word to see that this kind of message is happening.  There is a necessity to only clear out the Number of Lines -1, because the blank line does not show up as a Carriage Return, but it is necessary to show the message correctly (see comment above)
             Invoke-Command -ScriptBlock $Message
             
