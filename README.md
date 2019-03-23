@@ -2,15 +2,19 @@
 Wrapper for $Host.UI.RawUI.ReadKey.  
 Enables $Host.UI.RawUI.ReadKey to accept Single AND Multiple Characters.
 
-## SuperReadKey requires SuperLine  
-See my SuperLine repository.
+## SuperReadKey requires SuperLine and Clear-HostLine
+See my repositories for the most updated versions.  They are included here for your convenience.
 
 ## Welcome to SuperReadKey!
 This was born from a desire to have Read-Host accept single characters without necessitating an Enter inside of my menu system "RunMAhStuff".  I liked the ability to have a single keypress activate the menu option.  It was way faster than having to hit enter every time, but I was limited.
 
-I needed a way to have both single and multiple character input.  I could have easily switched between $Host.UI.RawUI.ReadKey and Read-Host, but I wanted it to work in a SINGLE function.  So, SuperReadKey was born.
+But... I needed a way to have BOTH single and multiple character input.  I could have easily switched between $Host.UI.RawUI.ReadKey and Read-Host, but I wanted it to work in a SINGLE function.  So, SuperReadKey was born.
 
-# Structure / Functionality
+# Structure / Intended Usage
+**Intended useage**
+SuperReadKey is meant to be called at the point that you need keyboard input, and then return to ANOTHER function to take action on the $Kvariable that stores the keyboard input.  This is specifically because the script needs to exit out at several points and calling out to a fuction is the most reliable way I have found to do that.  See the DEMO script for how I intended this to be used.
+
+**Structure**
 -SuperReadKey takes a $Host.UI.RawUI.ReadKey input and sends $K to the $SendKeystrokeTo variable.  This would be routed to whatever process in your ecosystem processes the input.
 
 -When you need to process multiple characters (MultiChar), the default key is -  
