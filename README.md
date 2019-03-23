@@ -1,4 +1,8 @@
 # SuperReadKey
+#I have a couple of issues I'm resolving with this function as of 3/23/19. I'm working on it allowing input for 1,2,3,4,5,6 as valid key options and also beign able to pass it a CSV or even a column in a Here-String.  When I'm done, it will be much more user friendly.
+
+Thanks!
+
 Wrapper for $Host.UI.RawUI.ReadKey.  
 Enables $Host.UI.RawUI.ReadKey to accept Single AND Multiple Characters.
 
