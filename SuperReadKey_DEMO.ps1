@@ -4,6 +4,23 @@ Import-Module $PSScriptRoot\SuperReadKey.psm1
 Import-Module $PSScriptRoot\SuperLine.psm1
 Import-Module $PSScriptRoot\Clear-HostLine.psm1
 
+Function MenuActions {
+    Switch ($K) {
+        1 {Write-Host "The Numbers are: 4-8-19-27-34-10";pause}
+        2 {Write-Host "Invest!  Compound Interest is your Friend!";pause}
+        3 {Write-Host "Frankie went to Hollywood";pause}
+        4 {Write-Host "Frankie went to Hollywood";pause}
+        5 {Write-Host "Frankie went to Hollywood";pause}
+        6 {Write-Host "Search for Cleetus McFarland on Youtube";pause}
+        a {Write-Host "I guess not.";pause}
+        b {Write-Host "Get along so we can all move ahead.";pause}
+        c {Write-Host "Help your neighbor, pay it forward.";pause}
+        abc {Write-Host "Yay!, you know your abc's!";pause}
+        q {quit}
+        default {Write-Host "Sorry, no slection made... try again" -f Red;pause}
+        }
+}
+
 $ConsoleWidth = 64
 
 Write-Host "This is a sample Menu System"
@@ -17,24 +34,12 @@ Write-Host "6 = Order Bartle Skeets"
 Write-Host "a = Can' we all get along?"
 Write-Host "b = World Peace"
 Write-Host "c = End Poverty"
+Write-Host "abc = Do you know your abc's?"
 Write-Host ""
 
 IF ($host.name -eq 'Windows Powershell ISE Host') {ReadHost} #Used when you are in ISE.  Will necessitate an ENTER Key.
 IF ($host.name -eq 'ConsoleHost') {SuperReadKey -TimeToWait 10 -ValidChoicesList "1,2,3,4,5,6,a,b,c" -SendKeystrokeTo MenuActions} #Used when running in Console. This will NOT necessitate an ENTER Key. BUT, it ## will NOT work ## in ISE    
 
-Function MenuActions {
-    Switch ($K) {
-        1 {Write-Host "The Numbers are: 4-8-19-27-34-10";pause}
-        2 {Write-Host "Invest!  Compound Interest is your Friend!";pause}
-        3 {Write-Host "Frankie went to Hollywood";pause}
-        4 {Write-Host "Frankie went to Hollywood";pause}
-        5 {Write-Host "Frankie went to Hollywood";pause}
-        6 {Write-Host "Search for Cleetus McFarland on Youtube";pause}
-        a {Write-Host "I guess not.";pause}
-        b {Write-Host "Get along so we can all move ahead.";pause}
-        c {Write-Host "Help your neighbor, pay it forward.";pause}
-        q {quit}
-        }
-}
+
 
 
