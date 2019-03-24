@@ -22,6 +22,13 @@ $Global:IndentMenu = {Write-Host -no (" " * $Ind1V)}
 
 Function Menu_Main {
     CLS
+    
+    #This line is very important to put into EVERY menu that you use with SuperReadKey.  This is how it knows where you came from
+    #This variable is used to re-run the menu when there is an entry error (in the case that you use MultiChar and type in something no in the list)
+    #When that situation happens, it gives you a message and will bring you back to the SourceMenu
+    $Global:SourceMenu = $MyInvocation.MyCommand.Name #Get back to current menu / escape mechanism
+    
+    
     Write-Host ""
     &$IndentMenu;Write-Host "This is a sample Menu System"
     &$IndentMenu;Write-Host ""
