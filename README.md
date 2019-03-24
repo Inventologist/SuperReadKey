@@ -1,8 +1,4 @@
 # SuperReadKey
-## I have a couple of issues I'm resolving with this function as of 3/23/19. I'm working on it allowing input for 1,2,3,4,5,6 as valid key options and also beign able to pass it a CSV or even a column in a Here-String.  When I'm done, it will be much more user friendly. ##
-
-Thanks!
-
 Wrapper for $Host.UI.RawUI.ReadKey.  
 Enables $Host.UI.RawUI.ReadKey to accept Single AND Multiple Characters.
 
@@ -16,7 +12,10 @@ But... I needed a way to have BOTH single and multiple character input.  I could
 
 # Structure / Intended Usage
 **Intended useage**  
-SuperReadKey is meant to be called at the point that you need keyboard input, and then return to ANOTHER function to take action on the $Kvariable that stores the keyboard input.  This is specifically because the script needs to exit out at several points and calling out to a fuction is the most reliable way I have found to do that.  See the DEMO script for how I intended this to be used.
+SuperReadKey is meant to be called at the point that you need keyboard input, and then return to ANOTHER function to take action on the $Kvariable that stores the keyboard input.  This is specifically because the script needs to exit out at several points... and calling out to a fuction is the most reliable way I have found to do that.  See the DEMO script for how I intended this to be used.
+
+**Fully Functioning DEMO** 
+The DEMO_Main and DEMO_MENU, and SuperReadKey (along with the supporting Modules) contains a complete running basic menu system for you to play with.  This is an extraction of the mechanics of my RunMahStuff Menu system.
 
 **Structure**  
 -SuperReadKey takes a $Host.UI.RawUI.ReadKey input and sends $K to the $SendKeystrokeTo variable.  This would be routed to whatever process in your ecosystem processes the input.
