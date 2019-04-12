@@ -14,7 +14,7 @@ But... I needed a way to have BOTH single and multiple character input.  I could
 **Intended useage**  
 SuperReadKey is meant to be called at the point that you need keyboard input, and then return to ANOTHER function to take action on the $K variable that stores the keyboard input.  This is specifically because the script needs to exit out at several points... and calling out to a fuction is the most reliable way I have found to do that.  See the DEMO script for how I intended this to be used.
 
-**Fully Functioning DEMO** 
+**Fully Functioning DEMO**  
 The DEMO_Main and DEMO_MENU, and SuperReadKey (along with the supporting Modules) contains a complete running basic menu system for you to play with.  This is an extraction of the mechanics of my RunMahStuff Menu system.
 
 **Structure**  
