@@ -23,22 +23,22 @@ The DEMO_Main and DEMO_MENU, and SuperReadKey (along with the supporting Modules
 -When you need to process multiple characters (MultiChar), the default key is -  
 This changes the prompts and puts the system into a loop to collect multiple $Host.UI.RawUI.ReadKey inputs and aggregate them into a temporary variable.
 
--Backspace
+-Backspace  
 During input, you have the ability to use the Backspace to delete incorrect characters.  Prompts will always reflect the current value of $K
 
--Enter
+-Enter  
 When the $Host.UI.RawUI.ReadKey sees the VirtualKeyCode for Enter, it submits the $K to your $SendKeystrokeTo
 
--Prompts
+-Prompts  
 The prompts are set up pretty well, you should not need to mess with them too much.  If you do need to put special messages into the prompts, they will automatically calculate the number of lines and erase them when you are looping or changing modes.  NOTICE: The prompts are set up for a screen width of 64 characters.  
 
--ConsoleWidth
+-ConsoleWidth  
 You will need to set up a variable called $ConsoleWidth.  This will be the total width of the console you are displaying this in.  This will be needed to limit the MultiChar input so that it doesn't roll over to the next line.  I use a value of 64.  Seems to look nice in a menu.  That leaves about 32 characters for input.
 
-# How to use SuperReadKey:
-I call it like this:
-($ValidKeyChoices is a list of valid choices from a CSV)
-SuperReadKey -ValidChoicesList $ValidKeyChoices
+# How to use SuperReadKey:  
+I call it like this:  
+($ValidKeyChoices is a list of valid choices from a CSV)  
+SuperReadKey -ValidChoicesList $ValidKeyChoices  
 
-I'm working on getting this to accept something like:
-SuperReadKey -ValidChoicesList 1,2,3,4,5,6,7,a,b,c,d
+I'm working on getting this to accept something like:  
+SuperReadKey -ValidChoicesList 1,2,3,4,5,6,7,a,b,c,d  
